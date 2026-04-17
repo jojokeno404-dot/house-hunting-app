@@ -1,0 +1,48 @@
+{% extends 'base.html' %}   <!-- Remove this line if you don't have base.html yet -->
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4>Unlock Agent Details</h4>
+                </div>
+                <div class="card-body">
+                    <h5>{{ apartment.title }}</h5>
+                    <p class="text-muted">{{ apartment.location }} • KSh {{ amount }} one-time payment</p>
+
+                    <hr>
+
+                    <form method="POST" action="{% url 'initiate_mpesa_payment' apartment.id %}">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label for="phone_number" class="form-label">
+                                <strong>Enter your M-Pesa Phone Number</strong>
+                            </label>
+                            <input type="tel" 
+                                   class="form-control" 
+                                   id="phone_number" 
+                                   name="phone_number" 
+                                   placeholder="0712345678" 
+                                   required>
+                            <small class="text-muted">We'll send the M-Pesa prompt to this number</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-lg w-100">
+                            💰 Pay KSh {{ amount }} with M-Pesa
+                        </button>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <small class="text-muted">
+                            You will receive an M-Pesa prompt on your phone to enter PIN
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

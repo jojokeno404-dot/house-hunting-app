@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .agent-card {
+        border-radius: 16px;
+        overflow: hidden;
+    }
+
+    .agent-header {
+        background: linear-gradient(135deg, #28a745, #218838);
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .agent-header h4 {
+        margin: 0;
+        font-weight: 600;
+    }
+
+    .apartment-title {
+        font-weight: 600;
+        font-size: 1.3rem;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .info-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .info-item:last-child {
+        border-bottom: none;
+    }
+
+    .info-label {
+        font-weight: 500;
+        color: #555;
+    }
+
+    .info-value {
+        font-weight: 600;
+        color: #222;
+    }
+
+    .btn-custom {
+        border-radius: 30px;
+        padding: 10px 25px;
+        font-weight: 500;
+    }
+
+    .card-body {
+        padding: 30px;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+
+            <div class="card shadow agent-card">
+
+                <!-- Header -->
+                <div class="agent-header">
+                    <h4>🎉 Payment Successful</h4>
+                    <small>Your agent details are now available</small>
+                </div>
+
+                <!-- Body -->
+                <div class="card-body">
+
+                    <div class="apartment-title">
+                        {{ apartment.title }}
+                    </div>
+
+                    <h6 class="text-muted mb-3 text-center">Agent Contact Details</h6>
+
+                    <div class="bg-light rounded">
+
+                        <div class="info-item">
+                            <span class="info-label">👤 Agent Name</span>
+                            <span class="info-value">
+                                {{ apartment.agent_name|default:"Not provided" }}
+                            </span>
+                        </div>
+
+                        <div class="info-item">
+                            <span class="info-label">📞 Phone</span>
+                            <span class="info-value">
+                                {{ apartment.agent_phone|default:"Not provided" }}
+                            </span>
+                        </div>
+
+                        <div class="info-item">
+                            <span class="info-label">📧 Email</span>
+                            <span class="info-value">
+                                {{ apartment.agent_email|default:"Not provided" }}
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <!-- Button -->
+                    <div class="mt-4 text-center">
+                        <a href="{% url 'apartment_detail' apartment.id %}"
+                           class="btn btn-primary btn-custom shadow-sm">
+                            ← Back to Apartment
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

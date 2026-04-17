@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Available Apartments</title>
+</head>
+<body>
+{% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}!</p>
+    <form action="/accounts/logout/" method="post">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
+{% else %}
+    <a href="/accounts/login/">Login</a>
+{% endif %}
+
+<h2>Search Apartments</h2>
+
+<form method="get" class="row mb-4">
+
+<div class="col-md-4">
+<input type="text" name="location" class="form-control" placeholder="Location">
+</div>
+
+<div class="col-md-3">
+<input type="number" name="price" class="form-control" placeholder="Max Price">
+</div>
+
+<div class="col-md-3">
+<input type="number" name="bedrooms" class="form-control" placeholder="Bedrooms">
+</div>
+
+<div class="col-md-2">
+<button class="btn btn-primary w-100">Search</button>
+</div>
+
+</form>
+
+<h1>Available Apartments</h1>
+<a href="/add-apartment/">Add Apartment</a>
+
+<div style="border:1px solid #ccc; padding:15px; margin:10px; width:300px; display:inline-block">
+
+    {% for img in apartment.images.all|slice:":1" %}
+        <img src="{{ img.image.url }}" width="280">
+    {% endfor %}
+
+    <h3>
+        <a href="/apartment/{{ apartment.id }}/">
+            {{ apartment.title }}
+        </a>
+    </h3>
+
+    <p>{{ apartment.location }}</p>
+    <p><strong>${{ apartment.price }}</strong></p>
+
+</div>
+
+<div class="row">
+
+{% for apartment in apartments %}
+
+<div class="col-md-4 mb-4">
+
+<div class="card">
+
+{% for img in apartment.images.all|slice:":1" %}
+<img src="{{ img.image.url }}" class="card-img-top">
+{% endfor %}
+
+<div class="card-body">
+
+<h5 class="card-title">
+<a href="/apartment/{{ apartment.id }}/">
+{{ apartment.title }}
+</a>
+</h5>
+
+<p class="card-text">
+📍 {{ apartment.location }} <br>
+🛏 Bedrooms: {{ apartment.bedrooms }} <br>
+💰 ${{ apartment.price }}
+</p>
+
+<a href="/apartment/{{ apartment.id }}/" class="btn btn-primary">
+View Details
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+{% endblock %}
+
+</body>
+</html>

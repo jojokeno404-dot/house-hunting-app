@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Request a Tour</h2>
+
+<p>Apartment: {{ apartment.title }}</p>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>Select a tour date:</label><br>
+    <input type="date" name="date" required><br><br>
+
+    <button type="submit">Submit Request</button>
+</form>
+
+{% endblock %}

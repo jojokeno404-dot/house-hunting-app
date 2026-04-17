@@ -1,0 +1,42 @@
+{% extends 'base.html' %}   <!-- Remove this line if you don't have base.html yet -->
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            <h1>{{ apartment.title }}</h1>
+            <p class="lead">{{ apartment.location }} • KSh {{ apartment.price }}</p>
+
+            <p><strong>{{ apartment.bedrooms }} Bedroom Apartment</strong></p>
+
+            <div class="my-4">
+                <p>{{ apartment.description }}</p>
+            </div>
+
+            <!-- Map can go here if you want (using latitude & longitude) -->
+
+            <hr>
+
+            <!-- CHANGED BUTTON -->
+            <a href="{% url 'pay_for_agent_details' apartment.id %}"
+               class="btn btn-primary btn-lg">
+                👤 See Apartment Agent Details
+            </a>
+
+            <!-- Optional: Keep Tour Request as secondary option -->
+            <a href="{% url 'apartment_detail' apartment.id %}"
+               class="btn btn-outline-secondary btn-lg ms-3">
+                Request a Tour
+            </a>
+        </div>
+
+        <!-- Sidebar / Image -->
+        <div class="col-md-4">
+            {% if apartment.apartmentimage_set.all %}
+                <img src="{{ apartment.apartmentimage_set.first.image.url }}"
+                     class="img-fluid rounded" alt="{{ apartment.title }}">
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

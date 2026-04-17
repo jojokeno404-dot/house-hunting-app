@@ -27,7 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['house-hunting-app-production.up.railway.app']
 
-
+CSRF_TRUSTED_ORIGINS = [
+    "https://house-hunting-app-production.up.railway.app",
+]
 # Application definition
 
 INSTALLED_APPS = [

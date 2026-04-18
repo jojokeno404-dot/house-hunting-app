@@ -13,7 +13,7 @@ import base64
 from datetime import datetime
 import json
 from .models import Apartment, MpesaPayment
-
+from .forms import ApartmentForm
 
 mpesa = None  # You can still use django-daraja if you want, but manual is fine
 
@@ -245,3 +245,16 @@ def apartment_detail(request, apartment_id):
         'apartment': apartment,
         'has_paid': has_paid
     })
+@login_required
+def add_apartment(request):
+    if request.method == 'POST':
+        form = ApartmentForm(request.POST, request.FILES)
+        if form.is_valid():
+            apartment = form.save(commit=False)
+            apartment.owner = request.user
+            apartment.save()
+            return redirect('apartment_list')
+    else:
+        form = ApartmentForm()
+
+    return render(request, 'add_apartment.html', {'form': form})

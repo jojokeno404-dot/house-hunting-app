@@ -12,7 +12,7 @@ urlpatterns = [
     path('initiate-payment/<int:apartment_id>/', views.initiate_mpesa_payment, name='initiate_mpesa_payment'),
     path('payment/processing/<int:apartment_id>/', views.payment_processing, name='payment_processing'),
     path('agent-details/<int:apartment_id>/', views.show_agent_details, name='show_agent_details'),
-
+    path('add-apartment/', views.add_apartment, name='add_apartment'),
     # M-Pesa Callback
     path('mpesa-callback/', views.mpesa_callback, name='mpesa_callback'),
 ]

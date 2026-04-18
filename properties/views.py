@@ -257,4 +257,4 @@ def add_apartment(request):
     else:
         form = ApartmentForm()
 
-    return render(request, 'add_apartment.html', {'form': form})
+    return render(request, 'add_apartments.html', {'form': form})
